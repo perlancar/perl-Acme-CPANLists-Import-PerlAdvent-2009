@@ -1,0 +1,86 @@
+#!/usr/bin/env perl
+
+use 5.010;
+use strict;
+use warnings;
+use FindBin '$Bin';
+
+use App::CreateAcmeCPANListsImportModules;
+use Perinci::Sub::Util qw(gen_curried_sub);
+use Perinci::CmdLine::Any;
+
+gen_curried_sub(
+    'App::CreateAcmeCPANListsImportModules::create_acme_cpanlists_import_modules',
+    {
+        modules => [
+            {
+                name => '2009',
+                url => "http://perladvent.org/2009/",
+                extract_urls => [map {"http://perladvent.org/2009/$_/"} 1,2,3,4,6,8,16,17,19,24],
+                summary => 'Modules mentioned in Perl Advent Calendar 2009',
+            },
+            {
+                name => '2009_12_01',
+                summary => "Modules mentioned in Perl Advent Calendar 2009 (day 1)",
+                url => "http://perladvent.org/2009/1/",
+            },
+            {
+                name => '2009_12_02',
+                summary => "Modules mentioned in Perl Advent Calendar 2009 (day 2)",
+                url => "http://perladvent.org/2009/2/",
+            },
+            {
+                name => '2009_12_03',
+                summary => "Modules mentioned in Perl Advent Calendar 2009 (day 3)",
+                url => "http://perladvent.org/2009/3/",
+            },
+            {
+                name => '2009_12_04',
+                summary => "Modules mentioned in Perl Advent Calendar 2009 (day 4)",
+                url => "http://perladvent.org/2009/4/",
+            },
+            {
+                name => '2009_12_06',
+                summary => "Modules mentioned in Perl Advent Calendar 2009 (day 6)",
+                url => "http://perladvent.org/2009/6/",
+                add_modules => ['App::XLSperl'],
+            },
+            {
+                name => '2009_12_08',
+                summary => "Modules mentioned in Perl Advent Calendar 2009 (day 8)",
+                url => "http://perladvent.org/2009/8/",
+            },
+            {
+                name => '2009_12_16',
+                summary => "Modules mentioned in Perl Advent Calendar 2009 (day 16)",
+                url => "http://perladvent.org/2009/16/",
+            },
+            {
+                name => '2009_12_17',
+                summary => "Modules mentioned in Perl Advent Calendar 2009 (day 17)",
+                url => "http://perladvent.org/2009/17/",
+            },
+            {
+                name => '2009_12_19',
+                summary => "Modules mentioned in Perl Advent Calendar 2009 (day 19)",
+                url => "http://perladvent.org/2009/19/",
+                add_modules => ["Match::Smart"],
+            },
+            {
+                name => '2009_12_24',
+                summary => "Modules mentioned in Perl Advent Calendar 2009 (day 24)",
+                url => "http://perladvent.org/2009/24/",
+                add_modules => ["lvalue"],
+            },
+        ],
+        namespace => 'Acme::CPANLists::Import::PerlAdvent',
+        user_agent => 'Mozilla/5.0',
+        dist_dir => "$Bin/..",
+    },
+    'app',
+);
+
+Perinci::CmdLine::Any->new(
+    url => '/main/app',
+    log => 1,
+)->run;
